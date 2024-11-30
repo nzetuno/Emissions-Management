@@ -34,8 +34,8 @@ export default function Home() {
     }).then(async response => {
       if (response.status === 200) {
         const user = await response.json();
-        message.success('created user ' + user.name);
-        setUsers([...users, user]);
+        message.success('created source ' + EmissionSource.name);
+        setUsers([...EmissionSources, EmissionSource]);
 
       } else message.error(
           `Failed to create user:\n ${JSON.stringify(await response.json())}`);
@@ -55,11 +55,11 @@ export default function Home() {
     }).then(async response => {
       if (response.status === 200) {
         await response.json();
-        message.success('Deleted user ' + user.name);
+        message.success('Deleted source ' + EmissionSource.name);
         setUsers(users.filter(u=> u.id !== id ));
 
       } else message.error(
-          `Failed to delete user:\n ${user.name}`);
+          `Failed to delete source:\n ${EmissionSource.name}`);
     }).catch(res=>{message.error(res)})
   };
 
@@ -77,14 +77,14 @@ export default function Home() {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
+      title: 'site',
+      dataIndex: 'site',
+      key: 'site',
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'value',
+      dataIndex: 'value',
+      key: 'value',
     },
 
     {
