@@ -77,16 +77,20 @@ export default function Home() {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'site',
+      title: 'Site',
       dataIndex: 'site',
       key: 'site',
     },
     {
-      title: 'value',
+      title: 'Value',
       dataIndex: 'value',
       key: 'value',
     },
-
+    {
+      title: 'Unit',
+      dataIndex: 'unit',
+      key: 'unit',
+    },
     {
       title: 'Action',
       key: 'action',
