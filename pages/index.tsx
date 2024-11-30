@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {ColumnsType} from "antd/es/table";
 import {Button, Form, Input, message, Modal, Select, Space, Table, Tag} from "antd";
 import { faker } from '@faker-js/faker';
-import {User} from ".prisma/client";
+import {EmissionSource} from ".prisma/client";
 const inter = Inter({ subsets: ['latin'] })
 
 const layout = {
@@ -17,7 +17,7 @@ const tailLayout = {
 };
 
 export default function Home() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [EmissionSources, setUsers] = useState<EmissionSource[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
 
@@ -33,7 +33,7 @@ export default function Home() {
       body: JSON.stringify(values)
     }).then(async response => {
       if (response.status === 200) {
-        const user = await response.json();
+        const EmissionSource = await response.json();
         message.success('created source ' + EmissionSource.name);
         setUsers([...EmissionSources, EmissionSource]);
 
@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   const onDelete = async (user: any) => {
-    const {id} = user;
+    const {id} = EmissionSource;
     setIsModalOpen(false);
     fetch('/api/delete_user', {
       method: 'POST',
@@ -56,7 +56,7 @@ export default function Home() {
       if (response.status === 200) {
         await response.json();
         message.success('Deleted source ' + EmissionSource.name);
-        setUsers(users.filter(u=> u.id !== id ));
+        setUsers(EmissionSources.filter(u=> u.id !== id ));
 
       } else message.error(
           `Failed to delete source:\n ${EmissionSource.name}`);
@@ -137,7 +137,7 @@ export default function Home() {
         })
   }, []);
 
-  if (!users) return "Give me a second";
+  if (!EmissionSources) return "Give me a second";
 
   return  <>
     <Button type="primary" onClick={showModal}>
@@ -155,10 +155,10 @@ export default function Home() {
         <Form.Item name="name" label="Name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="email" label="email" rules={[{ required: true }]}>
+        <Form.Item name="site" label="site" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="address" label="address" rules={[{ required: true }]}>
+        <Form.Item name="value" label="value" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
 
@@ -178,8 +178,8 @@ export default function Home() {
         </Form.Item>
       </Form>
     </Modal>
-    {/*<p>{JSON.stringify(users)}</p>*/}
-    <Table columns={columns} dataSource={users} />;
+    {/*<p>{JSON.stringify(EmissionSources)}</p>*/}
+    <Table columns={columns} dataSource={EmissionSources} />;
   </>;
 
 
