@@ -1,6 +1,8 @@
-export type User = {
+export type EmissionSource = {
     id : number;
-    email: string;
     name: string;
-    address: string;
+    description: string;
+    site: string;
+    value: integer;
+    unit: string;
 }
