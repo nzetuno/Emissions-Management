@@ -6,6 +6,6 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const EmissionSources = await prisma.EmissionSource.findMany()
+    const EmissionSources = await prisma.user.findMany()
     return res.status(200).json(EmissionSources)
 }
